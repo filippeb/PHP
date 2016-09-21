@@ -25,11 +25,11 @@ class Core {
   }
 
   public function get($endpoint, $id, $body = array(), $query_string = false) {
-    if (!$query_string) {
-      $url = "{$endpoint}/{$id}";
-    } else {
-      $url = "{$endpoint}?{$query_string}";
-    }
+    $url = vsprintf("%s%s%s", array(
+      $endpoint,
+      ($id ? '/' . $id : ''),
+      ($query_string ? '?' . $query_string : ''),
+    ));
 
 
     $this->result = $this->processRequest('GET', $url, $body);
